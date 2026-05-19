@@ -12,11 +12,12 @@ const staggerContainerVariants: Variants = {
 };
 
 const lineVariants: Variants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 18, filter: 'blur(4px)' },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    filter: 'blur(0px)',
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -51,7 +52,10 @@ const SnowCanvas = () => {
     updateSize();
     window.addEventListener('resize', updateSize);
 
-    const particles = Array.from({ length: 70 }, () => ({
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 25 : 60;
+
+    const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       r: Math.random() * 1.8 + 0.4,

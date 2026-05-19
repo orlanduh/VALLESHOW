@@ -4,12 +4,14 @@ import * as THREE from 'three';
 
 interface Entry3DProps {
   onEnter: () => void;
+  isEnteringProp?: boolean;
 }
 
-export const Entry3D: React.FC<Entry3DProps> = ({ onEnter }) => {
+export const Entry3D: React.FC<Entry3DProps> = ({ onEnter, isEnteringProp = false }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isEntering, setIsEntering] = useState(false);
+  const [internalIsEntering, setInternalIsEntering] = useState(false);
+  const isEntering = isEnteringProp || internalIsEntering;
   const [showPreview, setShowPreview] = useState(false);
   const [hoveredSnowflakeIndex, setHoveredSnowflakeIndex] = useState<number | null>(null);
 
@@ -111,7 +113,7 @@ export const Entry3D: React.FC<Entry3DProps> = ({ onEnter }) => {
     const snowflakesGroup = new THREE.Group();
     scene.add(snowflakesGroup);
 
-    const snowflakeCount = isMobile ? 35 : 75;
+    const snowflakeCount = isMobile ? 20 : 60; // Reduzido para performance no mobile
     const snowflakes: THREE.Group[] = [];
     const intersectableMeshes: THREE.Object3D[] = [];
 
@@ -431,14 +433,14 @@ export const Entry3D: React.FC<Entry3DProps> = ({ onEnter }) => {
 
       // 6. Camera shoots through vortex tunnel on Click
       if (isEntering) {
-        camera.position.z += (-24 - camera.position.z) * 0.12;
-        camera.rotation.z += 0.015 * (1.0 + warpFactor * 4); // Twist warp rotation!
+        camera.position.z += (-24 - camera.position.z) * 0.25;
+        camera.rotation.z += 0.02 * (1.0 + warpFactor * 5); // Twist warp rotation!
 
         if (scene.fog instanceof THREE.FogExp2) {
-          scene.fog.density += 0.06;
+          scene.fog.density += 0.08;
         }
 
-        if (camera.position.z < -22.5) {
+        if (camera.position.z < -21.0) {
           cancelAnimationFrame(animationFrameId);
           onEnter();
           return;
@@ -516,7 +518,7 @@ export const Entry3D: React.FC<Entry3DProps> = ({ onEnter }) => {
             <div className="entry-divider" />
             <p className="entry-tagline">Looks de neve sofisticados para viver sua experiência no Chile com estilo, conforto e praticidade.</p>
             <div className="entry-actions">
-              <button className="entry-btn primary" onClick={() => setIsEntering(true)}>
+              <button className="entry-btn primary" onClick={() => { setInternalIsEntering(true); onEnter(); }}>
                 <span>Entrar no showroom</span>
               </button>
               <button className="entry-btn secondary" onClick={() => setShowPreview(true)}>

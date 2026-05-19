@@ -1,7 +1,33 @@
 .app-container {
   min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   background: var(--snow);
   color: var(--ink);
+}
+
+.main-prepared {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.main-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, [class*="motion"] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
 }
 
 .brand-emblem {
