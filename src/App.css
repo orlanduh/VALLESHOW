@@ -9,8 +9,7 @@
 .main-prepared {
   opacity: 0;
   pointer-events: none;
-  position: fixed;
-  inset: 0;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -18,11 +17,10 @@
   opacity: 1;
   pointer-events: auto;
   transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, [class*="motion"] {
+  .reveal {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
