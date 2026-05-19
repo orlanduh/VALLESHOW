@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useInView, useScroll } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import { useParallax } from '../hooks/useParallax';
 
 const stats = [
@@ -46,7 +46,7 @@ const StatCounter: React.FC<{ target: number; unit: string; label: string; inVie
 
 export const Editorial: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-40px 0px -40px 0px' });
   const { scrollY } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
@@ -72,9 +72,10 @@ export const Editorial: React.FC = () => {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, x: 44 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 44 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          initial={{ opacity: 0, x: 44, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, amount: 0.12, margin: '0px 0px -40px 0px' }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           className="editorial-content"
         >
           <div className="editorial-tag">

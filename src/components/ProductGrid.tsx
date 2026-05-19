@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
-import { AnimatePresence, motion, useInView, type Variants } from 'framer-motion';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Eye, ShieldCheck, ShoppingBag, Snowflake, Thermometer, X } from 'lucide-react';
 import { categoryLabels, products, type Product, type ProductCategory } from '../data/products';
 
@@ -12,11 +12,11 @@ const gridVariants: Variants = {
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { type: 'spring', stiffness: 180, damping: 24, delay: i * 0.08 },
+    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 },
   }),
 };
 
@@ -90,10 +90,8 @@ const ProductCard: React.FC<{
 );
 
 export const ProductGrid: React.FC = () => {
-  const ref = useRef(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const productsAreaRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [activeCategory, setActiveCategory] = useState<ProductCategory | 'todos'>('todos');
   const [animatedFilters, setAnimatedFilters] = useState<Set<string>>(new Set(['todos']));
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -296,7 +294,8 @@ export const ProductGrid: React.FC = () => {
           ref={carouselRef}
           variants={gridVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12, margin: '0px 0px -40px 0px' }}
           className={`products-carousel ${isDragging ? 'dragging' : ''}`}
           onMouseDown={handleMouseDown}
           onMouseLeave={handleMouseLeave}

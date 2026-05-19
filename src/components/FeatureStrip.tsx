@@ -1,21 +1,21 @@
 import React, { useRef } from 'react';
-import { motion, useInView, type Variants } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { ShieldCheck, Sparkles, User, Briefcase } from 'lucide-react';
 
 const containerVariants: Variants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.14, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.09, delayChildren: 0.04 },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 26, filter: 'blur(6px)' },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: 'spring', stiffness: 100, damping: 22 },
+    filter: 'blur(0px)',
+    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -43,16 +43,13 @@ const features = [
 ];
 
 export const FeatureStrip: React.FC = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
   return (
     <section id="features" className="features-section">
       <motion.div
-        ref={ref}
         variants={containerVariants}
         initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12, margin: '0px 0px -40px 0px' }}
         className="features-grid"
       >
         {features.map((feature) => {
