@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState, MouseEvent } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import type { MouseEvent } from 'react';
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Eye, ShieldCheck, ShoppingBag, Snowflake, Thermometer, X } from 'lucide-react';
 import { categoryLabels, products, type Product, type ProductCategory } from '../data/products';
@@ -82,7 +83,7 @@ const ProductCard: React.FC<{
       <span>{product.origin}</span>
     </div>
 
-    <button className="product-add-btn" onClick={() => window.location.href = 'https://valleshowroomagendamento.as.me/schedule/6ecdcf70/appointment/72004509/calendar/11215975'}>
+    <button className="product-add-btn" onClick={() => { onReserve(); window.location.href = 'https://valleshowroomagendamento.as.me/schedule/6ecdcf70/appointment/72004509/calendar/11215975'; }}>
       <ShoppingBag size={16} />
       Agendar para provar
     </button>
@@ -90,6 +91,7 @@ const ProductCard: React.FC<{
 );
 
 export const ProductGrid: React.FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const productsAreaRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<ProductCategory | 'todos'>('todos');

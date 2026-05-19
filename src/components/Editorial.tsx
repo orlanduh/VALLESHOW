@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion, useInView, useScroll } from 'framer-motion';
 import { useParallax } from '../hooks/useParallax';
 
 const stats = [

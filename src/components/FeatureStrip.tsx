@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { ShieldCheck, Sparkles, User, Briefcase } from 'lucide-react';
 

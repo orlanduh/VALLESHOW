@@ -1,5 +1,5 @@
 import React from 'react';
-import { Camera, Mail, MapPin, Phone } from 'lucide-react';
+import { Camera, MapPin, Phone } from 'lucide-react';
 
 export const Footer: React.FC = () => (
   <footer id="footer" className="footer-section">

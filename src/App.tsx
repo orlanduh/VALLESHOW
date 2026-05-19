@@ -24,6 +24,8 @@ function App() {
     });
   };
 
+  return (
+    <div className="app-container">
       <AnimatePresence>
         {hasEntered && (
           <motion.div

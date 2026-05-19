@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform, type Variants } from 'framer-motion';
-import { Calendar, Menu, X, MessageCircle } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 
 const navVariants: Variants = {
   hidden: { opacity: 0, y: -20 },
