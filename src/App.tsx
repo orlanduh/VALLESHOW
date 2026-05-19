@@ -24,23 +24,31 @@ function App() {
     });
   };
 
-  return (
-    <div className="app-container">
-      <div className={hasEntered ? "main-visible" : "main-behind-intro"}>
-        <Nav />
-        <main>
-          <Hero />
-          <Marquee />
-          <ProductGrid />
-          <KitsValores />
-          <FeatureStrip />
-          <ComoAlugar />
-          <Editorial />
-          <Location />
-          <FAQ />
-        </main>
-        <Footer />
-      </div>
+      <AnimatePresence>
+        {hasEntered && (
+          <motion.div
+            key="main-site"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="main-visible"
+          >
+            <Nav />
+            <main>
+              <Hero />
+              <Marquee />
+              <ProductGrid />
+              <KitsValores />
+              <FeatureStrip />
+              <ComoAlugar />
+              <Editorial />
+              <Location />
+              <FAQ />
+            </main>
+            <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {!hasEntered && (

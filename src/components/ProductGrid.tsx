@@ -192,25 +192,31 @@ export const ProductGrid: React.FC = () => {
 
   return (
     <section id="products" className="products-section">
-      <div className="products-header">
+      <motion.div 
+        className="products-header"
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.12, margin: "0px 0px -80px 0px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         <h2 className="products-title">Escolha seu look para a neve</h2>
         <p className="products-intro">
           Conheça uma curadoria de roupas, botas e acessórios disponíveis na Valle Showroom. Nossa coleção completa conta com mais de 50 modelos e variações de cores no espaço físico.
         </p>
-      </div>
+      </motion.div>
 
       <motion.div 
         className="exclusive-spotlight"
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 0.12, margin: "0px 0px -80px 0px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="spotlight-content">
           <motion.span 
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ delay: 0.1, duration: 0.5 }}
             className="spotlight-tag"
           >
@@ -219,7 +225,7 @@ export const ProductGrid: React.FC = () => {
           <motion.h3 
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
             className="spotlight-title"
           >
@@ -228,7 +234,7 @@ export const ProductGrid: React.FC = () => {
           <motion.h4 
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ delay: 0.25, duration: 0.5 }}
             className="spotlight-subtitle"
           >
@@ -237,7 +243,7 @@ export const ProductGrid: React.FC = () => {
           <motion.p 
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
             className="spotlight-text"
           >
@@ -246,7 +252,7 @@ export const ProductGrid: React.FC = () => {
           <motion.button 
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ delay: 0.4, duration: 0.5 }}
             className="spotlight-btn" 
             onClick={handleViewExclusiveCollection}
@@ -256,7 +262,14 @@ export const ProductGrid: React.FC = () => {
         </div>
       </motion.div>
 
-      <div className="collection-toolbar" ref={productsAreaRef}>
+      <motion.div 
+        className="collection-toolbar" 
+        ref={productsAreaRef}
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.12, margin: "0px 0px -40px 0px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div className="category-tabs" aria-label="Categorias">
           {categories.map((category) => (
             <button
@@ -272,7 +285,7 @@ export const ProductGrid: React.FC = () => {
           <ShoppingBag size={16} />
           <span>{reservationCount}</span>
         </div>
-      </div>
+      </motion.div>
 
       <div className="carousel-wrapper" ref={ref}>
         <button className="carousel-arrow left" onClick={() => scrollByAmount(-360)} aria-label="Anterior">
