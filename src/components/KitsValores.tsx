@@ -45,10 +45,10 @@ export const KitsValores: React.FC = () => {
           {kits.map((kit, index) => (
             <motion.div
               key={kit.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 24, filter: 'blur(5px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, amount: 0.1, margin: '0px 0px -40px 0px' }}
+              transition={{ delay: index * 0.1, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 background: kit.highlight ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.02)',
                 border: `1px solid ${kit.highlight ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.08)'}`,
