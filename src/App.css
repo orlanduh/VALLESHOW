@@ -2129,4 +2129,27 @@
   }
 }
 
+/* Lógica de Transição do MainSite / Intro */
+.main-behind-intro {
+  opacity: 0;
+  pointer-events: none;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.main-visible {
+  opacity: 1;
+  pointer-events: auto;
+  height: auto;
+  overflow: visible;
+  transition: opacity 0.8s ease-out;
+}
+
+.intro-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
 

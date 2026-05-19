@@ -17,35 +17,40 @@ import { Entry3D } from './components/Entry3D';
 function App() {
   const [hasEntered, setHasEntered] = useState(false);
 
+  const handleEnter = () => {
+    setHasEntered(true);
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    });
+  };
+
   return (
     <div className="app-container">
-      <AnimatePresence mode="wait">
-        {!hasEntered && (
-          <Entry3D key="entry" onEnter={() => setHasEntered(true)} />
-        )}
-      </AnimatePresence>
+      <div className={hasEntered ? "main-visible" : "main-behind-intro"}>
+        <Nav />
+        <main>
+          <Hero />
+          <Marquee />
+          <ProductGrid />
+          <KitsValores />
+          <FeatureStrip />
+          <ComoAlugar />
+          <Editorial />
+          <Location />
+          <FAQ />
+        </main>
+        <Footer />
+      </div>
 
       <AnimatePresence>
-        {hasEntered && (
+        {!hasEntered && (
           <motion.div
-            key="showroom"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.4, ease: 'easeOut' }}
+            key="entry-wrapper"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="intro-wrapper"
           >
-            <Nav />
-            <main>
-              <Hero />
-              <Marquee />
-              <ProductGrid />
-              <KitsValores />
-              <FeatureStrip />
-              <ComoAlugar />
-              <Editorial />
-              <Location />
-              <FAQ />
-            </main>
-            <Footer />
+            <Entry3D onEnter={handleEnter} />
           </motion.div>
         )}
       </AnimatePresence>

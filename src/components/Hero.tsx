@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { motion, type Variants } from 'framer-motion';
+import { motion, useScroll, type Variants } from 'framer-motion';
 import { ArrowDown, Sparkles } from 'lucide-react';
 import { useParallax } from '../hooks/useParallax';
 
