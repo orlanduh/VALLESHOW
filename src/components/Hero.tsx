@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { ArrowDown, Sparkles } from 'lucide-react';
 import { useParallax } from '../hooks/useParallax';
 
@@ -24,13 +24,14 @@ const SnowCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mediaQuery.matches) return;
-
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    // Reduce motion: increase animation duration, but never skip rendering
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const speedFactor = prefersReduced ? 0.2 : 1;
 
     let animationFrameId: number;
     let width = window.innerWidth;
@@ -62,9 +63,9 @@ const SnowCanvas = () => {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
       particles.forEach((particle) => {
-        particle.angle += 0.008;
-        particle.y += particle.speed;
-        particle.x += Math.sin(particle.angle) * 0.28;
+        particle.angle += 0.008 * speedFactor;
+        particle.y += particle.speed * speedFactor;
+        particle.x += Math.sin(particle.angle) * 0.28 * speedFactor;
 
         if (particle.y > height + 8) {
           particle.y = -8;
@@ -93,14 +94,8 @@ const SnowCanvas = () => {
 
 export const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress, scrollY } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-
+  const { scrollY } = useScroll();
   const backgroundParallax = useParallax(scrollY, 150, 0.3);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
-  const cardY = useTransform(scrollYProgress, [0, 1], [0, -90]);
 
   return (
     <section ref={heroRef} className="hero-section">
@@ -111,7 +106,7 @@ export const Hero: React.FC = () => {
         <div className="hero-abstract-shape shape-3" />
       </motion.div>
 
-      <motion.div style={{ opacity: cardOpacity, y: cardY }} className="hero-content hero-content-center">
+      <motion.div className="hero-content hero-content-center">
         <motion.div 
           variants={staggerContainerVariants} 
           initial="hidden" 
